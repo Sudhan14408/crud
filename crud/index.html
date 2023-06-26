@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>CRUD Operations with jQuery</title>
+  <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+  <style>
+    table {
+      border-collapse: collapse;
+    }
+    th, td {
+      border: 1px solid black;
+      padding: 5px;
+    }
+    th {
+      background-color: #ccc;
+    }
+  </style>
+</head>
+<body>
+  <h2>CRUD Operations with jQuery</h2>
+
+  <table id="myTable">
+    <tr>
+      <th>Name</th>
+       <th>Email</th>
+      <th>Actions</th>
+    </tr>
+    <tr>
+      <td>sudhan</td>
+      <td>sd@example.com</td>
+      <td>
+        <button class="editBtn">Edit</button>
+        <button class="deleteBtn">Delete</button>
+      </td>
+    </tr>
+    <tr>
+      <td>raja</td>
+      <td>raja@example.com</td>
+      <td>
+        <button class="editBtn">Edit</button>
+        <button class="deleteBtn">Delete</button>
+      </td>
+    </tr>
+  </table>
+
+  <h3>Add a new entry</h3>
+  <input type="text" id="nameInput" placeholder="Name">
+  <input type="text" id="emailInput" placeholder="Email">
+  <button id="addBtn">Add</button>
+
+  <script>
+    // Add new entry
+    $('#addBtn').click(function() {
+      var name = $('#nameInput').val();
+      var email = $('#emailInput').val();
+      var newRow = $('<tr><td>' + name + '</td><td>' + email + '</td><td><button class="editBtn">Edit</button><button class="deleteBtn">Delete</button></td></tr>');
+      $('#myTable').append(newRow);
+      $('#nameInput, #emailInput').val('');
+    });
+
+    // Edit entry
+    $(document).on('click', '.editBtn', function() {
+      var row = $(this).closest('tr');
+      var name = row.find('td:eq(0)').text();
+      var email = row.find('td:eq(1)').text();
+      $('#nameInput').val(name);
+      $('#emailInput').val(email);
+      row.remove();
+    });
+
+    // Delete entry
+    $(document).on('click', '.deleteBtn', function() {
+      $(this).closest('tr').remove();
+    });
+  </script>
+</body>
+</html>
